@@ -34,5 +34,6 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# uploads (served via guarded route, never committed)
-/storage/*
+# dev logs
+dev-err.log
+dev-out.log
