@@ -1,7 +1,7 @@
 import type { HTMLAttributes } from "react";
 import { cn } from "@/lib/cn";
 
-export type BadgeVariant = "ok" | "warn" | "danger" | "blue" | "purple" | "pink";
+export type BadgeVariant = "ok" | "warn" | "danger" | "blue" | "purple" | "pink" | "copper";
 
 const VARIANTS: Record<BadgeVariant, string> = {
   ok: "bg-chip-mint text-mint before:bg-mint",
@@ -10,6 +10,7 @@ const VARIANTS: Record<BadgeVariant, string> = {
   blue: "bg-chip-blue text-blue before:bg-blue",
   purple: "bg-chip-purple text-purple before:bg-purple",
   pink: "bg-chip-pink text-pink before:bg-pink",
+  copper: "bg-chip text-copper before:bg-copper",
 };
 
 type BadgeProps = HTMLAttributes<HTMLSpanElement> & {

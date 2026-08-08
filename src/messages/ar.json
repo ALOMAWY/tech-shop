@@ -1,56 +1,65 @@
-{
-  "Shell": {
-    "brandMark": "TS",
-    "brandName": "تِك شوب",
-    "brandNameLatin": "/ TechShop",
-    "brandSub": "توزيع قطع إلكترونية بالجملة",
-    "themeToggle": "تبديل الوضع الفاتح/الداكن",
-    "themeToLight": "الفاتح",
-    "themeToDark": "الداكن",
-    "footerName": "تِك شوب — نظام توزيع قطع إلكترونية بالجملة",
-    "footerRev": "TECHSHOP·PCB·REV-02"
-  },
-  "Hero": {
-    "title": "هوية بصرية مستوحاة من",
-    "titleAccent": "لوحات الدارات الإلكترونية",
-    "lead": "النظام متاح بالعربية بالكامل مع دعم RTL ووضعي الفاتح والداكن — أسطح مسطحة نظيفة وألوان PCB وخطوط دارة نحاسية."
-  },
-  "Catalog": {
-    "sectionTitle": "الكتالوج",
-    "sectionNote": "شبكة المنتجات والفلاتر تبدأ في المرحلة التالية.",
-    "comingSoon": "المنتجات قادمة — شبكة «صناديق قطع» ودّارات فلترة."
-  },
-  "Privacy": {
-    "name": "الخصوصية",
-    "title": "معدل الثقة",
-    "ownerOnly": "حقل حساس يظهر للمالك فقط."
-  },
-  "Auth": {
-    "title": "تسجيل الدخول",
-    "subtitle": "بدون تسجيل ذاتي — حسابات الزبائن يُنشئها المالك فقط.",
-    "email": "البريد الإلكتروني",
-    "emailPlaceholder": "customer@example.com",
-    "password": "كلمة المرور",
-    "passwordPlaceholder": "••••••••",
-    "submit": "دخول",
-    "hint": "ليس لديك حساب؟ لا يوجد تسجيل ذاتي",
-    "ownerFlag": "created_by: owner",
-    "error": "بيانات الدخول غير صحيحة.",
-    "loading": "جارٍ التحقق…",
-    "logout": "خروج"
-  },
-  "Dashboard": {
-    "title": "لوحة التحكم",
-    "welcome": "مرحباً، المالك",
-    "nav": {
-      "dashboard": "لوحة التحكم",
-      "products": "المنتجات",
-      "customers": "الزبائن",
-      "orders": "الطلبات"
-    }
-  },
-  "Common": {
-    "backToStore": "عودة إلى المتجر",
-    "loading": "جارٍ التحميل…"
-  }
+﻿{
+    "Shell":  {
+                  "brandMark":  "TS",
+                  "brandName":  "تِك شوب",
+                  "brandNameLatin":  "/ TechShop",
+                  "brandSub":  "توزيع قطع إلكترونية بالجملة",
+                  "themeToggle":  "تبديل الوضع الفاتح/الداكن",
+                  "themeToLight":  "الفاتح",
+                  "themeToDark":  "الداكن",
+                  "footerName":  "تِك شوب — نظام توزيع قطع إلكترونية بالجملة",
+                  "footerRev":  "TECHSHOP·PCB·REV-02"
+              },
+    "Hero":  {
+                 "title":  "هوية بصرية مستوحاة من",
+                 "titleAccent":  "لوحات الدارات الإلكترونية",
+                 "lead":  "النظام متاح بالعربية بالكامل مع دعم RTL ووضعي الفاتح والداكن — أسطح مسطحة نظيفة وألوان PCB وخطوط دارة نحاسية."
+             },
+    "Catalog":  {
+                    "sectionTitle":  "الكتالوج",
+                    "sectionNote":  "شبكة المنتجات والفلاتر تبدأ في المرحلة التالية.",
+                    "comingSoon":  "المنتجات قادمة — شبكة «صناديق قطع» ودّارات فلترة."
+                },
+    "Privacy":  {
+                    "name":  "الخصوصية",
+                    "title":  "معدل الثقة",
+                    "ownerOnly":  "حقل حساس يظهر للمالك فقط."
+                },
+    "Auth":  {
+                 "title":  "تسجيل الدخول",
+                 "subtitle":  "بدون تسجيل ذاتي — حسابات الزبائن يُنشئها المالك فقط.",
+                 "email":  "البريد الإلكتروني",
+                 "emailPlaceholder":  "customer@example.com",
+                 "password":  "كلمة المرور",
+                 "passwordPlaceholder":  "••••••••",
+                 "submit":  "دخول",
+                 "hint":  "ليس لديك حساب؟ لا يوجد تسجيل ذاتي",
+                 "ownerFlag":  "created_by: owner",
+                 "error":  "بيانات الدخول غير صحيحة.",
+                 "loading":  "جارٍ التحقق…",
+                 "logout":  "خروج"
+             },
+    "Dashboard":  {
+                      "title":  "لوحة التحكم",
+                      "welcome":  "مرحباً، المالك",
+                      "nav":  {
+                                  "dashboard":  "لوحة التحكم",
+                                  "products":  "المنتجات",
+                                  "customers":  "الزبائن",
+                                  "orders":  "الطلبات"
+                              }
+                  },
+    "Common":  {
+                   "backToStore":  "عودة إلى المتجر",
+                   "loading":  "جارٍ التحميل…"
+               },
+    "Orders":  {
+                   "status":  {
+                                  "RECEIVED":  "مستلم",
+                                  "AWAITING_PAYMENT":  "بانتظار الدفع",
+                                  "PAID":  "مدفوع",
+                                  "PREPARING":  "قيد التحضير",
+                                  "DELIVERED":  "تم التسليم"
+                              }
+               }
 }
