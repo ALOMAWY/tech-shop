@@ -1,6 +1,7 @@
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { ThemeToggle } from "@/components/shared/ThemeToggle";
+import { CartTrigger } from "@/components/store/CartTrigger";
 
 export function Topbar() {
   const t = useTranslations("Shell");
@@ -20,6 +21,7 @@ export function Topbar() {
           </span>
         </Link>
         <div className="flex items-center gap-2.5">
+          <CartTrigger />
           <ThemeToggle />
         </div>
       </div>

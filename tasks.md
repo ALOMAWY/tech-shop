@@ -47,6 +47,7 @@
 ---
 
 ## M2 — Catalog + Cart
+**Status:** In Progress.
 
 **Goal:** customer browses fixed seeded categories and buys. Visual reference: filter belt + parts-bins product grid in demo.
 

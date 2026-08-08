@@ -122,4 +122,22 @@
   .trace::after {
     left: 0;
   }
+  .trace-flow .path-bg {
+    stroke: var(--line-soft);
+    stroke-width: 2;
+    fill: none;
+    stroke-dasharray: 2 8;
+    stroke-linecap: round;
+  }
+  .trace-flow .path-anim {
+    stroke: var(--copper);
+    stroke-width: 2;
+    fill: none;
+    stroke-dasharray: 2 8;
+    stroke-linecap: round;
+    stroke-dashoffset: 0;
+  }
+  .trace-flow .node {
+    fill: var(--copper);
+  }
 }
