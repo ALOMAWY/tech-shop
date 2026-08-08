@@ -5,48 +5,13 @@
 ---
 
 ## M0 — Project Setup
-
-**Goal:** One-time environment build-out. No feature code.
-
-- [ ] Scaffold Next.js 15 App Router + React 19 + TS strict: `pnpm create next-app@latest . --ts --app --src-dir --tailwind` (eslint, import alias `@/*`).
-- [ ] Add deps: `prisma @prisma/client @auth/*` (NextAuth v5), `next-intl`, `tailwindcss@4`, `zustand`, `@tanstack/react-query`, `react-hook-form`, `zod`, `@phosphor-icons/react`, `bcryptjs`, `resend`, `recharts`, `vitest`, `@testing-library/react`, `playwright`.
-- [ ] Add fonts via `next/font`: Space Grotesk (display), IBM Plex Sans Arabic (Arabic body), Inter (Latin body), JetBrains Mono (utility).
-- [ ] `compose.yaml` (PostgreSQL 16, port 5432) + `.env` (`DATABASE_URL`, `AUTH_SECRET`, `RESEND_API_KEY` placeholder).
-- [ ] Install + generate Prisma client; `prisma/schema.prisma` from AGENTS §5.
-- [ ] Stand up infra: `docker compose up -d postgres`, `pnpm prisma migrate dev`, `pnpm prisma db seed`.
-- [ ] Wire `next-intl`: Arabic default, `dir="rtl"` from app root, `messages/ar.json`.
-- [ ] `lib/tokens.ts` with §10 tokens (dark default + light), consumed via Tailwind v4 `@theme` as CSS vars.
-- [ ] `ThemeToggle` (sun/moon, dark="الفاتح"/light="الداكن" label).
-- [ ] Auth.js credentials provider + `requireRole(role)` helper + blocked-user sign-out middleware.
-- [ ] Seed owner account (bcryptjs, cost 12); 4 seed categories.
-- [ ] Quality gates green: lint, typecheck, test, e2e (login).
-
----
+**Status:** Completed.
 
 ## M1 — Skeleton (Theme + Auth + Layouts)
-
-**Goal:** the approved visual shell (`theme-demo.html`) live as reusable components; both roles can log in; no self-registration.
-
-**Design tokens / primitives (from theme-demo.html):**
-- [ ] UI primitives in `components/ui/`: `Button` (`btn-copper`/`mint`/`blue`/`purple`/`pink`/`ghost`), `Card` (solder-pad corner, radius 6px, border `--line-soft`), `Badge` (ok/warn/danger/blue/purple/pink with LED dot), `Input` (copper focus ring), `Modal`, `SectionTitle` (pad + title), `TraceDivider` (dotted copper, end-dots).
-- [ ] Focus rings: 2px copper outline offset 2 on all interactive elements.
-- [ ] `prefers-reduced-motion`: disable circuit/toggle transitions.
-
-**Shell:**
-- [ ] `Topbar`: sticky, blurred bg, brand mark `TS`, Space Grotesk brand name, mono sub-brand.
-- [ ] Hero strip (Space Grotesk display + accent copper + `text-2` lead) + LED strip flourish (aria-hidden).
-- [ ] Footer (dotted copper top-border, mono revision string).
-
-**Auth & layouts:**
-- [ ] Public `/login` page built from theme-demo `.form-card` (email/password, "created_by: owner" hint — no register link).
-- [ ] `(store)` customer layout + `(owner)` dashboard layout RTL.
-- [ ] Role gate: owner pages `requireAdmin()` each, not layout-only.
-- [ ] Protected-field discipline: `select` whitelists in `src/code/*`; `trustScore`/`passwordHash` never in customer responses.
-- [ ] Vitest for `requireRole` logic; Playwright login journey (owner + customer).
-
----
+**Status:** Completed.
 
 ## M2 — Catalog + Cart
+**Status:** In Progress.
 
 **Goal:** customer browses fixed seeded categories and buys. Visual reference: filter belt + parts-bins product grid in demo.
 
