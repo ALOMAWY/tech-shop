@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>تِك شوب — معاينة الهوية البصرية (Theme Demo)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500&family=IBM+Plex+Sans+Arabic:wght@400;500&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ============ Design Tokens (PRD §10 — single source of truth) ============ */
+:root[data-theme="dark"]{
+  --bg:          #0E1B26;
+  --surface:     #162636;
+  --surface-2:   #1D3044;
+  --copper:      #FF9D5C;
+  --mint:        #3BE09F;
+  --amber:       #FFC24B;
+  --red:         #FF6B6B;
+  --blue:        #4FC3FF;
+  --purple:      #B399FF;
+  --pink:        #FF8AC8;
+  --text:        #E7ECF1;
+  --text-2:      #9AA8B5;
+  --line:        rgba(255,157,92,.35);
+  --line-soft:   rgba(154,168,181,.18);
+  --chip:        rgba(255,157,92,.12);
+  --chip-mint:   rgba(59,224,159,.12);
+  --chip-amber:  rgba(255,194,75,.12);
+  --chip-red:    rgba(255,107,107,.12);
+  --chip-blue:   rgba(79,195,255,.12);
+  --chip-purple: rgba(179,153,255,.12);
+  --chip-pink:   rgba(255,138,200,.12);
+  --on-accent:   #0E1B26;
+  --solder:      #FF9D5C;
+}
+:root[data-theme="light"]{
+  --bg:          #F2F4F6;
+  --surface:     #E8ECF0;
+  --surface-2:   #DEE4EA;
+  --copper:      #C05621;
+  --mint:        #0E9F5F;
+  --amber:       #C8871F;
+  --red:         #D64545;
+  --blue:        #1F7FD6;
+  --purple:      #7450C9;
+  --pink:        #CE4F96;
+  --text:        #1C2A36;
+  --text-2:      #5D6B78;
+  --line:        rgba(192,86,33,.45);
+  --line-soft:   rgba(28,42,54,.16);
+  --chip:        rgba(192,86,33,.14);
+  --chip-mint:   rgba(14,159,95,.22);
+  --chip-amber:  rgba(200,135,31,.22);
+  --chip-red:    rgba(214,69,69,.14);
+  --chip-blue:   rgba(31,127,214,.14);
+  --chip-purple: rgba(116,80,201,.14);
+  --chip-pink:   rgba(206,79,150,.14);
+  --on-accent:   #F2F4F6;
+  --solder:      #1C2A36;
+}
+
+*{ margin:0; padding:0; box-sizing:border-box; }
+html{ scroll-behavior:smooth; }
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:"IBM Plex Sans Arabic","Inter",sans-serif;
+  font-weight:400;
+  line-height:1.7;
+  transition:background .35s ease,color .35s ease;
+}
+.lat{ font-family:"Inter",sans-serif; }
+.display{ font-family:"Space Grotesk",sans-serif; }
+.mono{ font-family:"JetBrains Mono",monospace; }
+::selection{ background:var(--copper); color:var(--bg); }
+
+.container{ max-width:1120px; margin:0 auto; padding:0 20px; }
+
+/* ============ Circuit-trace divider (PRD §10.4) ============ */
+.trace{
+  border:none;
+  height:1px;
+  background-image:repeating-linear-gradient(to left,var(--line) 0 10px,transparent 10px 18px);
+  position:relative;
+  margin:28px 0;
+}
+.trace::before,.trace::after{
+  content:"";
+  position:absolute;
+  top:-2px;
+  width:5px; height:5px;
+  border-radius:50%;
+  background:var(--copper);
+}
+.trace::before{ right:0; }
+.trace::after{ left:0; }
+
+/* ============ Solder-pad card (PRD §10.4) ============ */
+.card{
+  background:var(--surface);
+  border:1px solid var(--line-soft);
+  border-radius:6px;
+  position:relative;
+  overflow:hidden;
+}
+.card::before{
+  content:"";
+  position:absolute;
+  inset-inline-start:0; top:0;
+  width:22px; height:8px;
+  background:var(--solder);
+  border-radius:0 0 6px 0;
+}
+
+/* ============ Header ============ */
+.topbar{
+  position:sticky; top:0; z-index:50;
+  background:color-mix(in srgb,var(--bg) 88%,transparent);
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--line-soft);
+}
+.topbar-inner{ display:flex; align-items:center; justify-content:space-between; height:64px; }
+.brand{ display:flex; align-items:center; gap:10px; }
+.brand-mark{
+  width:30px; height:30px;
+  border:2px solid var(--copper);
+  border-radius:6px;
+  display:grid; place-items:center;
+  color:var(--copper);
+  font-family:"JetBrains Mono",monospace;
+  font-size:13px; font-weight:500;
+}
+.brand-name{ font-family:"Space Grotesk",sans-serif; font-size:20px; font-weight:500; letter-spacing:.02em; }
+.brand-sub{ font-size:11px; color:var(--text-2); display:block; }
+
+.controls{ display:flex; align-items:center; gap:10px; }
+.theme-toggle{
+  display:flex; align-items:center; gap:8px;
+  background:var(--chip);
+  color:var(--copper);
+  border:1px solid var(--line);
+  border-radius:6px;
+  padding:6px 14px;
+  font-family:"IBM Plex Sans Arabic",sans-serif;
+  font-size:13px;
+  cursor:pointer;
+  transition:transform .15s ease,background .3s ease;
+}
+.theme-toggle:active{ transform:scale(.97); }
+.theme-toggle:focus-visible{ outline:2px solid var(--copper); outline-offset:2px; }
+[data-theme="dark"] .icon-sun{ display:inline; }
+[data-theme="dark"] .icon-moon{ display:none; }
+[data-theme="light"] .icon-sun{ display:none; }
+[data-theme="light"] .icon-moon{ display:inline; }
+.icon-sun,.icon-moon{ font-size:15px; }
+
+/* ============ Hero strip ============ */
+.hero{ padding:64px 0 8px; }
+.hero h1{
+  font-family:"Space Grotesk","IBM Plex Sans Arabic",sans-serif;
+  font-weight:500;
+  font-size:clamp(28px,5vw,44px);
+  line-height:1.25;
+  letter-spacing:.01em;
+}
+.hero h1 .accent{ color:var(--copper); }
+.hero p{ color:var(--text-2); max-width:56ch; margin-top:12px; font-size:15px; }
+
+/* ============ Section titles ============ */
+.sec{ margin:48px 0 20px; }
+.sec h2{
+  font-family:"Space Grotesk","IBM Plex Sans Arabic",sans-serif;
+  font-weight:500;
+  font-size:22px;
+  display:flex; align-items:center; gap:10px;
+}
+.sec h2 .pad{
+  width:8px; height:18px; background:var(--copper); border-radius:3px; display:inline-block;
+}
+.sec-note{ color:var(--text-2); font-size:13px; margin-top:4px; }
+
+/* ============ Palette swatches ============ */
+.swatches{ display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:12px; }
+.swatch{
+  border-radius:6px;
+  border:1px solid var(--line-soft);
+  overflow:hidden;
+  background:var(--surface);
+}
+.swatch-color{ height:64px; }
+.swatch-info{ padding:8px 12px; }
+.swatch-name{ font-size:12.5px; font-weight:500; }
+.swatch-hex{ font-family:"JetBrains Mono",monospace; font-size:11.5px; color:var(--text-2); direction:ltr; display:block; }
+
+/* ============ Typography specimens ============ */
+.type-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:12px; }
+.type-card{ padding:18px; }
+.type-card .sample{ font-size:26px; font-weight:500; line-height:1.4; }
+.type-card .meta{ font-family:"JetBrains Mono",monospace; font-size:11.5px; color:var(--text-2); direction:ltr; display:block; margin-top:8px; }
+.type-card p{ font-size:13.5px; color:var(--text-2); margin-top:6px; }
+
+/* ============ Buttons / badges ============ */
+.kit{ display:flex; flex-wrap:wrap; gap:12px; align-items:center; }
+.btn{
+  border:none; border-radius:6px;
+  padding:10px 22px;
+  font-family:"IBM Plex Sans Arabic",sans-serif;
+  font-size:14px; font-weight:500;
+  cursor:pointer;
+  transition:transform .15s ease,filter .2s ease;
+  position:relative;
+}
+.btn:focus-visible{ outline:2px solid var(--copper); outline-offset:2px; }
+.btn:active{ transform:translateY(1px) scale(.98); }
+.btn-copper{ background:var(--copper); color:var(--on-accent); }
+.btn-mint{ background:var(--mint); color:var(--on-accent); }
+.btn-blue{ background:var(--blue); color:var(--on-accent); }
+.btn-purple{ background:var(--purple); color:var(--on-accent); }
+.btn-pink{ background:var(--pink); color:var(--on-accent); }
+.btn-ghost{ background:transparent; color:var(--text); border:1px solid var(--line); }
+.btn-ghost:hover{ border-color:var(--copper); color:var(--copper); }
+.btn-copper:hover,.btn-mint:hover,.btn-blue:hover,.btn-purple:hover,.btn-pink:hover{ filter:brightness(1.08); }
+
+.badge{
+  display:inline-flex; align-items:center; gap:6px;
+  font-size:12px; font-weight:500;
+  border-radius:4px;
+  padding:3px 10px;
+}
+.badge::before{ content:""; width:5px; height:5px; border-radius:50%; }
+.badge-ok{ background:var(--chip-mint); color:var(--mint); }
+.badge-ok::before{ background:var(--mint); }
+.badge-warn{ background:var(--chip-amber); color:var(--amber); }
+.badge-warn::before{ background:var(--amber); }
+.badge-danger{ background:var(--chip-red); color:var(--red); }
+.badge-danger::before{ background:var(--red); }
+.badge-blue{ background:var(--chip-blue); color:var(--blue); }
+.badge-blue::before{ background:var(--blue); }
+.badge-purple{ background:var(--chip-purple); color:var(--purple); }
+.badge-purple::before{ background:var(--purple); }
+.badge-pink{ background:var(--chip-pink); color:var(--pink); }
+.badge-pink::before{ background:var(--pink); }
+
+/* LED strip (hero flourish) */
+.led-strip{ display:flex; gap:8px; margin-top:18px; }
+.led-strip i{
+  width:10px; height:10px; border-radius:50%;
+  box-shadow:0 0 10px currentColor;
+  transition:transform .2s ease;
+}
+.led-strip i:hover{ transform:scale(1.4); }
+@media (prefers-reduced-motion: reduce){ .led-strip i{ box-shadow:none; } }
+
+/* ============ Filter belt (PRD §10.4 tool belt) ============ */
+.filters{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+  gap:10px;
+}
+.filter{
+  background:var(--surface);
+  border:1px solid var(--line-soft);
+  border-radius:6px;
+  padding:12px 16px;
+  cursor:pointer;
+  text-align:right;
+  transition:border-color .2s ease,background .2s ease;
+  font-family:inherit;
+}
+.filter:hover{ border-color:var(--line); }
+.filter.active{ border-color:var(--copper); background:var(--chip); }
+.filter .f-name{ font-weight:500; font-size:14px; display:flex; align-items:center; gap:8px; }
+.filter .f-dot{ width:7px; height:7px; border-radius:50%; display:inline-block; flex-shrink:0; }
+.filter .f-count{ font-family:"JetBrains Mono",monospace; font-size:11px; color:var(--text-2); display:block; direction:ltr; text-align:right; }
+
+/* ============ Product grid (parts bins) ============ */
+.products{ display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:14px; }
+.product{ padding:16px; display:flex; flex-direction:column; gap:10px; transition:border-color .2s ease; }
+.product:hover{ border-color:var(--line); }
+.product .sku{
+  font-family:"JetBrains Mono",monospace;
+  font-size:11px; color:var(--text-2);
+  direction:ltr; text-align:right;
+  letter-spacing:.05em;
+}
+.product .ph{
+  height:96px;
+  border-radius:6px;
+  border:1px dashed var(--line);
+  display:grid; place-items:center;
+  color:var(--text-2);
+  font-size:12px;
+  background:var(--surface-2);
+}
+.products .product:nth-child(1) .ph{ border-color:var(--copper); color:var(--copper); background:var(--chip); }
+.products .product:nth-child(2) .ph{ border-color:var(--blue); color:var(--blue); background:var(--chip-blue); }
+.products .product:nth-child(3) .ph{ border-color:var(--mint); color:var(--mint); background:var(--chip-mint); }
+.products .product:nth-child(4) .ph{ border-color:var(--purple); color:var(--purple); background:var(--chip-purple); }
+.product h3{ font-size:15px; font-weight:500; line-height:1.5; }
+.product .features{ font-size:12.5px; color:var(--text-2); }
+.product .price-row{ display:flex; align-items:baseline; justify-content:space-between; margin-top:auto; }
+.product .price{ font-family:"JetBrains Mono",monospace; font-size:18px; font-weight:500; direction:ltr; }
+.product .price small{ font-size:11px; color:var(--text-2); font-weight:400; }
+.product .stock{ font-family:"JetBrains Mono",monospace; font-size:11px; color:var(--mint); direction:ltr; }
+.product .stock.low{ color:var(--amber); }
+.product .add{
+  background:transparent;
+  border:1px solid var(--line);
+  border-radius:6px;
+  color:var(--copper);
+  padding:8px 0;
+  font-family:inherit; font-size:13.5px; font-weight:500;
+  cursor:pointer;
+  transition:background .2s ease,color .2s ease;
+}
+.product .add:hover{ background:var(--copper); color:var(--on-accent); }
+.product .add:focus-visible{ outline:2px solid var(--copper); outline-offset:2px; }
+
+/* ============ Cart + circuit trace (PRD §10.5 signature) ============ */
+.cart-demo{ padding:22px; }
+.cart-row{ display:flex; justify-content:space-between; gap:10px; padding:10px 0; border-bottom:1px dashed var(--line-soft); font-size:14px; }
+.cart-row:last-of-type{ border-bottom:none; }
+.cart-row .mono{ direction:ltr; }
+.cart-total{ display:flex; justify-content:space-between; margin-top:10px; padding-top:12px; border-top:1px solid var(--line); font-weight:500; }
+.cart-total .mono{ direction:ltr; font-size:17px; }
+.trace-flow{ margin:18px 0; position:relative; }
+.trace-flow svg{ width:100%; height:40px; display:block; }
+.trace-flow .path-bg{ stroke:var(--line-soft); stroke-width:2; fill:none; stroke-dasharray:2 8; stroke-linecap:round; }
+.trace-flow .path-anim{
+  stroke:var(--copper);
+  stroke-width:2;
+  fill:none;
+  stroke-dasharray:2 8;
+  stroke-linecap:round;
+  stroke-dashoffset:0;
+  transition:stroke 1s ease;
+}
+.trace-flow.complete .path-anim{ stroke:var(--mint); }
+.trace-flow .node{
+  fill:var(--copper);
+  transition:fill .6s ease;
+}
+.trace-flow.complete .node{ fill:var(--mint); }
+.cart-actions{ display:flex; gap:10px; flex-wrap:wrap; }
+.checkout-msg{
+  display:none;
+  margin-top:12px;
+  background:var(--chip-mint);
+  border:1px solid var(--mint);
+  border-radius:6px;
+  padding:10px 14px;
+  font-size:13.5px;
+}
+.checkout-msg.show{ display:block; }
+.checkout-msg .mono{ color:var(--mint); direction:ltr; display:inline-block; }
+
+/* ============ Login form (no self-registration) ============ */
+.form-card{ max-width:420px; padding:22px; }
+.field{ margin-bottom:14px; }
+.field label{ display:block; font-size:13px; font-weight:500; margin-bottom:6px; }
+.field input{
+  width:100%;
+  background:var(--bg);
+  border:1px solid var(--line-soft);
+  border-radius:6px;
+  color:var(--text);
+  padding:11px 14px;
+  font-family:inherit;
+  font-size:14px;
+  transition:border-color .2s ease;
+}
+.field input::placeholder{ color:var(--text-2); opacity:.7; }
+.field input:focus{ outline:none; border-color:var(--copper); box-shadow:0 0 0 3px color-mix(in srgb,var(--copper) 22%,transparent); }
+.form-hint{ font-size:12px; color:var(--text-2); margin-top:8px; }
+.form-hint .mono{ direction:ltr; color:var(--copper); }
+
+/* ============ Footer ============ */
+footer{ margin-top:72px; padding:24px 0 40px; border-top:1px solid var(--line-soft); }
+.foot-inner{ display:flex; flex-wrap:wrap; gap:10px; justify-content:space-between; color:var(--text-2); font-size:12.5px; }
+.foot-inner .mono{ direction:ltr; }
+
+/* ============ Reduced motion (PRD §10.6) ============ */
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior:auto; }
+  .theme-toggle,.btn,.product .add,.trace-flow .path-anim,.trace-flow .node{
+    transition:none;
+  }
+  body{ transition:none; }
+}
+
+/* ============ Mobile-first touches ============ */
+@media (max-width:560px){
+  .hero{ padding-top:40px; }
+  .cart-row{ font-size:13px; }
+  .topbar-inner{ height:58px; }
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="container topbar-inner">
+    <div class="brand">
+      <span class="brand-mark lat">TS</span>
+      <span>
+        <span class="brand-name">تِك شوب <span class="lat" style="color:var(--text-2)">/</span> TechShop</span>
+        <span class="brand-sub">توزيع قطع إلكترونية بالجملة</span>
+      </span>
+    </div>
+    <div class="controls">
+      <button class="theme-toggle" id="themeToggle" aria-label="تبديل الوضع الفاتح/الداكن">
+        <span class="icon-sun" aria-hidden="true">☀</span>
+        <span class="icon-moon" aria-hidden="true">☾</span>
+        <span id="themeLabel">الفاتح</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+
+  <section class="hero">
+    <h1>هوية بصرية مستوحاة من <span class="accent">لوحات الدارات الإلكترونية</span></h1>
+    <p>
+      معاينة واحدة لنظام التصميم المعتمد في وثيقة المواصفات (PRD §10):
+      أسطح مسطحة نظيفة بلا تدرجات، ألوان PCB، خطوط دارة نحاسية، بطاقات بزوايا حادة
+      ولمسة «لحام سطح» — مع دعم كامل للعربية و RTL ووضعي الفاتح والداكن.
+    </p>
+    <div class="led-strip" aria-hidden="true">
+      <i style="color:var(--copper);background:var(--copper)"></i>
+      <i style="color:var(--mint);background:var(--mint)"></i>
+      <i style="color:var(--blue);background:var(--blue)"></i>
+      <i style="color:var(--amber);background:var(--amber)"></i>
+      <i style="color:var(--purple);background:var(--purple)"></i>
+      <i style="color:var(--pink);background:var(--pink)"></i>
+      <i style="color:var(--red);background:var(--red)"></i>
+    </div>
+  </section>
+
+  <hr class="trace" aria-hidden="true">
+
+  <!-- ================= Palette ================= -->
+  <section class="sec">
+    <h2><span class="pad" aria-hidden="true"></span>لوحة الألوان — Design Tokens</h2>
+    <p class="sec-note">الداكن هو الافتراضي؛ الفاتح نسخة مقلوبة بخلفية بيج دافئة مع ثبات النحاسي والمينت.</p>
+    <div class="swatches" id="swatches"></div>
+  </section>
+
+  <!-- ================= Typography ================= -->
+  <section class="sec">
+    <h2><span class="pad" aria-hidden="true"></span>الطباعة — Typography</h2>
+    <p class="sec-note">أوزان 400/500 فقط، بلا أوزان ثقيلة.</p>
+    <div class="type-grid">
+      <div class="card type-card">
+        <div class="sample display" lang="en">Space Grotesk</div>
+        <span class="meta">DISPLAY · العناوين وأسماء الفئات فقط</span>
+        <p class="lat">Resistor Array 0402 — 10kΩ</p>
+      </div>
+      <div class="card type-card">
+        <div class="sample">نص عربي رئيسي</div>
+        <span class="meta" lang="en">IBM Plex Sans Arabic · BODY</span>
+        <p>مقاومة دقيقة التسامح 1% للدوائر الحساسة، مناسبة للتجميع اليدوي والآلي.</p>
+      </div>
+      <div class="card type-card">
+        <div class="sample lat">Inter pairing</div>
+        <span class="meta" lang="en">Inter · LATIN BODY</span>
+        <p class="lat">SMD LEDs, capacitors, connectors &amp; breakout boards in bulk.</p>
+      </div>
+      <div class="card type-card">
+        <div class="sample mono lat" style="font-size:22px">SKU-0412-88</div>
+        <span class="meta" lang="en">JetBrains Mono · UTILITY</span>
+        <p>الأسعار وأكواد الدفع ومعدل الثقة — إحساس «لوحة مواصفات فنية».</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= UI kit ================= -->
+  <section class="sec">
+    <h2><span class="pad" style="background:var(--amber)" aria-hidden="true"></span>مكونات أساسية — Components</h2>
+    <p class="sec-note">أزرار نحاسية للرئيسي، مينت للنجاح، وشارات حالة لكل حالة تشغيل.</p>
+    <div class="kit">
+      <button class="btn btn-copper">إتمام الطلب</button>
+      <button class="btn btn-mint">تم الدفع</button>
+      <button class="btn btn-blue">إرسال للزبون</button>
+      <button class="btn btn-purple">كود خصم</button>
+      <button class="btn btn-pink">إضافة للمنتجات</button>
+      <button class="btn btn-ghost">حفظ التغييرات</button>
+      <span class="badge badge-ok">متوفر</span>
+      <span class="badge badge-warn">مخزون منخفض</span>
+      <span class="badge badge-danger">محظور</span>
+      <span class="badge badge-ok">كود خصم فعال</span>
+      <span class="badge badge-blue">جديد</span>
+      <span class="badge badge-purple">شحن سريع</span>
+      <span class="badge badge-pink">عرض خاص</span>
+    </div>
+  </section>
+
+  <!-- ================= Filter belt ================= -->
+  <section class="sec">
+    <h2><span class="pad" style="background:var(--blue)" aria-hidden="true"></span>حزام الفلاتر — Category Filter Belt</h2>
+    <p class="sec-note">شريط الفئات الأربع الأساسية؛ قابلة للتوسعة من لوحة التحكم.</p>
+    <div class="filters" role="tablist" aria-label="فئات المنتجات">
+      <button class="filter active" role="tab" aria-selected="true"><span class="f-name"><i class="f-dot" style="background:var(--copper)"></i>إكسسوارات</span><span class="f-count lat">014 items</span></button>
+      <button class="filter" role="tab" aria-selected="false"><span class="f-name"><i class="f-dot" style="background:var(--mint)"></i>أدوات أساسية</span><span class="f-count lat">032 items</span></button>
+      <button class="filter" role="tab" aria-selected="false"><span class="f-name"><i class="f-dot" style="background:var(--blue)"></i>قطع صغيرة</span><span class="f-count lat">087 items</span></button>
+      <button class="filter" role="tab" aria-selected="false"><span class="f-name"><i class="f-dot" style="background:var(--purple)"></i>سماعات / كيبوردات / ماوسات</span><span class="f-count lat">021 items</span></button>
+    </div>
+  </section>
+
+  <!-- ================= Product grid ================= -->
+  <section class="sec">
+    <h2><span class="pad" aria-hidden="true"></span>شبكة المنتجات — Parts Bins</h2>
+    <p class="sec-note">بطاقات مربعة الحواف مع زاوية «لحام سطح» نحاسية و SKU بأحرف أحادية المسافة.</p>
+    <div class="products">
+      <article class="card product">
+        <span class="sku lat">SKU-1003-18</span>
+        <div class="ph lat" aria-hidden="true">SMD RES 0402</div>
+        <h3>مقاومات SMD 0402 — 10kΩ</h3>
+        <p class="features">تسامح 1% · عبوة جملة 5000 قطعة</p>
+        <div class="price-row">
+          <span class="price lat">18.50 <small>د.ع / 100</small></span>
+          <span class="stock lat">IN-4820</span>
+        </div>
+        <button class="add">إضافة إلى السلة</button>
+      </article>
+
+      <article class="card product">
+        <span class="sku lat">SKU-2041-07</span>
+        <div class="ph lat" aria-hidden="true">MLCC 0603</div>
+        <h3>مكثفات سيراميك 0603 — 100nF</h3>
+        <p class="features">50V · استقرار X7R · علب 1000</p>
+        <div class="price-row">
+          <span class="price lat">9.75 <small>د.ع / 100</small></span>
+          <span class="stock low lat">LOW-214</span>
+        </div>
+        <button class="add">إضافة إلى السلة</button>
+      </article>
+
+      <article class="card product">
+        <span class="sku lat">SKU-3110-02</span>
+        <div class="ph lat" aria-hidden="true">ARDUINO NANO</div>
+        <h3>لوحة Arduino Nano — نسخة جملة</h3>
+        <p class="features">ATmega328P · رأس ملحوم مسبقاً</p>
+        <div class="price-row">
+          <span class="price lat">42.00 <small>د.ع / قطعة</small></span>
+          <span class="stock lat">IN-960</span>
+        </div>
+        <button class="add">إضافة إلى السلة</button>
+      </article>
+
+      <article class="card product">
+        <span class="sku lat">SKU-4077-31</span>
+        <div class="ph lat" aria-hidden="true">SPST TOGGLE</div>
+        <h3>مفاتيح Toggle صغيرة SPST</h3>
+        <p class="features">نحاس مطلي · تشغيل 10000 دورة</p>
+        <div class="price-row">
+          <span class="price lat">13.20 <small>د.ع / 50</small></span>
+          <span class="stock lat">IN-1530</span>
+        </div>
+        <button class="add">إضافة إلى السلة</button>
+      </article>
+    </div>
+  </section>
+
+  <!-- ================= Cart → Checkout circuit ================= -->
+  <section class="sec">
+    <h2><span class="pad" aria-hidden="true"></span>العنصر المميز — السلة إلى الدفع</h2>
+    <p class="sec-note">خط دارة منقّط يربط السلة بزر إتمام الدفع، وتكتمل الدارة بلون المينت عند نجاح الدفع.</p>
+    <div class="card cart-demo">
+      <div class="cart-row">
+        <span>مقاومات SMD 0402 — 10kΩ <span class="lat mono" style="font-size:12px;color:var(--text-2)">×2</span></span>
+        <span class="mono lat">37.00</span>
+      </div>
+      <div class="cart-row">
+        <span>لوحة Arduino Nano</span>
+        <span class="mono lat">42.00</span>
+      </div>
+      <div class="cart-row">
+        <span>شحن + ضريبة</span>
+        <span class="mono lat">0.00</span>
+      </div>
+      <div class="cart-total">
+        <span>المجموع الكلي</span>
+        <span class="mono lat">79.00</span>
+      </div>
+
+      <div class="trace-flow" id="traceFlow" aria-hidden="true">
+        <svg viewBox="0 0 600 40" preserveAspectRatio="none">
+          <path class="path-bg" d="M10 20 H590"/>
+          <path class="path-anim" id="tracePath" d="M10 20 H590"/>
+          <circle class="node" id="nodeCart" cx="10" cy="20" r="4"/>
+          <circle class="node" id="nodePay" cx="590" cy="20" r="4"/>
+        </svg>
+      </div>
+
+      <div class="cart-actions">
+        <button class="btn btn-copper" id="payBtn">إتمام الدفع</button>
+        <span class="badge badge-ok" style="align-self:center">طريقة الدفع: Sham Cash + QR</span>
+      </div>
+      <div class="checkout-msg" id="checkoutMsg" role="status">
+        اكتملت الدارة — تم تأكيد الدفع. كود الدفع:
+        <span class="mono lat">PAY-77A4-9C1F</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= Login ================= -->
+  <section class="sec">
+    <h2><span class="pad" aria-hidden="true"></span>تسجيل الدخول — بدون تسجيل ذاتي</h2>
+    <p class="sec-note">حسابات الزبائن يُنشئها المالك فقط؛ الدخول ببريد مسجّل مسبقاً.</p>
+    <div class="card form-card">
+      <div class="field">
+        <label for="email">البريد الإلكتروني</label>
+        <input type="email" id="email" placeholder="customer@example.com" autocomplete="email">
+      </div>
+      <div class="field">
+        <label for="pass">كلمة المرور</label>
+        <input type="password" id="pass" placeholder="••••••••" autocomplete="current-password">
+      </div>
+      <button class="btn btn-copper" style="width:100%">دخول</button>
+      <p class="form-hint">ليس لديك حساب؟ لا يوجد تسجيل ذاتي — <span class="mono lat">created_by: owner</span></p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="container foot-inner">
+    <span>تِك شوب — نظام توزيع قطع إلكترونية بالجملة</span>
+    <span class="mono lat">TECHSHOP·PCB·THEME-DEMO·REV-01</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  /* ---------- theme toggle ---------- */
+  var root = document.documentElement;
+  var toggle = document.getElementById('themeToggle');
+  var label = document.getElementById('themeLabel');
+  function apply(theme){
+    root.setAttribute('data-theme', theme);
+    label.textContent = (theme === 'dark') ? 'الفاتح' : 'الداكن';
+  }
+  toggle.addEventListener('click', function(){
+    apply(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+  });
+  apply('dark');
+
+  /* ---------- palette swatches ---------- */
+  var swatches = document.getElementById('swatches');
+  var palette = [
+    { name:'خلفية أساسية · bg-primary',        hex:'#0E1B26', color:'#0E1B26', dark:true },
+    { name:'سطح البطاقات · surface',           hex:'#162636', color:'#162636', dark:true },
+    { name:'تمييز نحاسي · accent-copper',      hex:'#FF9D5C', color:'#FF9D5C' },
+    { name:'نجاح/متوفر · accent-mint',         hex:'#3BE09F', color:'#3BE09F' },
+    { name:'تنبيه · accent-amber',             hex:'#FFC24B', color:'#FFC24B' },
+    { name:'خطأ · accent-red',                 hex:'#FF6B6B', color:'#FF6B6B' },
+    { name:'أزرق · accent-blue',               hex:'#4FC3FF', color:'#4FC3FF' },
+    { name:'بنفسجي · accent-purple',           hex:'#B399FF', color:'#B399FF' },
+    { name:'وردي · accent-pink',               hex:'#FF8AC8', color:'#FF8AC8' },
+    { name:'نص أساسي · text-primary',          hex:'#E7ECF1', color:'#E7ECF1', dark:true },
+    { name:'نص ثانوي · text-secondary',        hex:'#9AA8B5', color:'#9AA8B5', dark:true },
+    { name:'فاتح · light bg (نسخة مقلوبة)',    hex:'#F2F4F6', color:'#F2F4F6' }
+  ];
+  palette.forEach(function(p){
+    var el = document.createElement('div');
+    el.className = 'swatch';
+    var textColor = (p.dark) ? '#E7ECF1' : '#1C2A36';
+    el.innerHTML =
+      '<div class="swatch-color" style="background:'+p.color+';border-bottom:1px solid var(--line-soft)"></div>' +
+      '<div class="swatch-info"><span class="swatch-name">'+p.name+'</span>' +
+      '<span class="swatch-hex" style="color:'+textColor+'">'+p.hex+'</span></div>';
+    swatches.appendChild(el);
+  });
+
+  /* ---------- filter belt ---------- */
+  var filters = document.querySelectorAll('.filter');
+  filters.forEach(function(f){
+    f.addEventListener('click', function(){
+      filters.forEach(function(x){ x.classList.remove('active'); x.setAttribute('aria-selected','false'); });
+      f.classList.add('active');
+      f.setAttribute('aria-selected','true');
+    });
+  });
+
+  /* ---------- signature: cart → checkout circuit ---------- */
+  var flow = document.getElementById('traceFlow');
+  var payBtn = document.getElementById('payBtn');
+  var msg = document.getElementById('checkoutMsg');
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  payBtn.addEventListener('click', function(){
+    flow.classList.add('complete');
+    msg.classList.add('show');
+    payBtn.textContent = 'تم الدفع ✓';
+    payBtn.classList.remove('btn-copper');
+    payBtn.classList.add('btn-mint');
+    payBtn.disabled = true;
+    if(reduced){ return; }
+    var path = document.getElementById('tracePath');
+    var nodes = [document.getElementById('nodeCart'), document.getElementById('nodePay')];
+    var anim = path.animate(
+      [{ strokeDashoffset: 0 }, { strokeDashoffset: -120 }],
+      { duration: 900, iterations: 2, easing: 'linear', direction: 'normal' }
+    );
+    nodes.forEach(function(n){
+      n.animate([{ r: 4 }, { r: 6 }, { r: 4 }], { duration: 300, iterations: 2 });
+    });
+  });
+})();
+</script>
+</body>
+</html>

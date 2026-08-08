@@ -1,0 +1,53 @@
+/* Design tokens — single source of truth (AGENTS.md §10 / theme-demo.html) */
+
+:root {
+  --bg: #0e1b26;
+  --surface: #162636;
+  --surface-2: #1d3044;
+  --copper: #ff9d5c;
+  --mint: #3be09f;
+  --amber: #ffc24b;
+  --red: #ff6b6b;
+  --blue: #4fc3ff;
+  --purple: #b399ff;
+  --pink: #ff8ac8;
+  --text: #e7ecf1;
+  --text-2: #9aa8b5;
+  --line: rgba(255, 157, 92, 0.35);
+  --line-soft: rgba(154, 168, 181, 0.18);
+  --chip: rgba(255, 157, 92, 0.12);
+  --chip-mint: rgba(59, 224, 159, 0.12);
+  --chip-amber: rgba(255, 194, 75, 0.12);
+  --chip-red: rgba(255, 107, 107, 0.12);
+  --chip-blue: rgba(79, 195, 255, 0.12);
+  --chip-purple: rgba(179, 153, 255, 0.12);
+  --chip-pink: rgba(255, 138, 200, 0.12);
+  --on-accent: #0e1b26;
+  --solder: #ff9d5c;
+}
+
+[data-theme="light"] {
+  --bg: #f2f4f6;
+  --surface: #e8ecf0;
+  --surface-2: #dee4ea;
+  --copper: #c05621;
+  --mint: #0e9f5f;
+  --amber: #c8871f;
+  --red: #d64545;
+  --blue: #1f7fd6;
+  --purple: #7450c9;
+  --pink: #ce4f96;
+  --text: #1c2a36;
+  --text-2: #5d6b78;
+  --line: rgba(192, 86, 33, 0.45);
+  --line-soft: rgba(28, 42, 54, 0.16);
+  --chip: rgba(192, 86, 33, 0.14);
+  --chip-mint: rgba(14, 159, 95, 0.22);
+  --chip-amber: rgba(200, 135, 31, 0.22);
+  --chip-red: rgba(214, 69, 69, 0.14);
+  --chip-blue: rgba(31, 127, 214, 0.14);
+  --chip-purple: rgba(116, 80, 201, 0.14);
+  --chip-pink: rgba(206, 79, 150, 0.14);
+  --on-accent: #f2f4f6;
+  --solder: #1c2a36;
+}

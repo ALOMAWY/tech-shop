@@ -1,0 +1,173 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  owner
+  customer
+}
+
+enum OrderStatus {
+  RECEIVED
+  AWAITING_PAYMENT
+  PAID
+  PREPARING
+  DELIVERED
+}
+
+enum PaymentMethod {
+  SHAM_CASH_QR
+  COD
+  PREPAID
+}
+
+enum PaymentStatus {
+  INACTIVE
+  ACTIVE
+  USED
+}
+
+enum DiscountType {
+  PERCENT
+  FIXED
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  role         Role     @default(customer)
+  address      String?
+  rating       Float    @default(0)
+  trustScore   Int      @default(0)
+  isBlocked    Boolean  @default(false)
+  createdBy    String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  orders   Order[]
+  carts    Cart[]
+  sent     Message[] @relation("MessagesSent")
+  received Message[] @relation("MessagesReceived")
+}
+
+model Category {
+  id    String  @id @default(cuid())
+  name  String
+  slug  String  @unique
+  order Int     @default(0)
+  color String  @default("copper")
+
+  products Product[]
+}
+
+model Product {
+  id         String   @id @default(cuid())
+  name       String
+  categoryId String
+  category   Category @relation(fields: [categoryId], references: [id])
+  images     String[]
+  features   String[]
+  quantity   Int      @default(0)
+  price      Decimal  @default(0) @db.Decimal(10, 2)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  orderItems OrderItem[]
+  cartItems  CartItem[]
+}
+
+model Order {
+  id            String        @id @default(cuid())
+  customerId    String
+  customer      User          @relation(fields: [customerId], references: [id])
+  items         OrderItem[]
+  total         Decimal       @default(0) @db.Decimal(10, 2)
+  status        OrderStatus   @default(RECEIVED)
+  paymentMethod PaymentMethod?
+  discountCode  String?
+  paymentCodeId String?       @unique
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  paymentCode PaymentCode?
+}
+
+model OrderItem {
+  id        String   @id @default(cuid())
+  orderId   String
+  order     Order    @relation(fields: [orderId], references: [id])
+  productId String?
+  product   Product? @relation(fields: [productId], references: [id])
+  quantity  Int
+  price     Decimal  @db.Decimal(10, 2)
+}
+
+model PaymentCode {
+  id        String        @id @default(cuid())
+  orderId   String        @unique
+  code      String        @unique
+  status    PaymentStatus @default(INACTIVE)
+  createdAt DateTime      @default(now())
+
+  order Order @relation(fields: [orderId], references: [id])
+}
+
+model DiscountCode {
+  id                  String       @id @default(cuid())
+  code                String       @unique
+  type                DiscountType
+  value               Decimal      @db.Decimal(10, 2)
+  applicableProducts  String[]
+  applicableCustomers String[]
+  expiry              DateTime?
+  active              Boolean      @default(true)
+  createdAt           DateTime     @default(now())
+  updatedAt           DateTime     @updatedAt
+}
+
+model Cart {
+  id         String   @id @default(cuid())
+  customerId String
+  customer   User     @relation(fields: [customerId], references: [id])
+  createdBy  String?
+  createdAt  DateTime @default(now())
+
+  items CartItem[]
+}
+
+model CartItem {
+  id         String   @id @default(cuid())
+  cartId     String
+  cart       Cart     @relation(fields: [cartId], references: [id])
+  productId  String?
+  product    Product? @relation(fields: [productId], references: [id])
+  quantity   Int
+  price      Decimal  @default(0) @db.Decimal(10, 2)
+}
+
+model Message {
+  id         String    @id @default(cuid())
+  senderId   String
+  sender     User      @relation("MessagesSent", fields: [senderId], references: [id])
+  receiverId String
+  receiver   User      @relation("MessagesReceived", fields: [receiverId], references: [id])
+  content    String
+  seenAt     DateTime?
+  sentAt     DateTime  @default(now())
+}
+
+model AuditLog {
+  id         String   @id @default(cuid())
+  actorId    String
+  action     String
+  entityType String
+  entityId   String
+  meta       Json?
+  at         DateTime @default(now())
+}

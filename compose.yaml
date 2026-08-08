@@ -1,0 +1,16 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: techshop-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: techshop
+      POSTGRES_PASSWORD: techshop
+      POSTGRES_DB: techshop
+    ports:
+      - "5432:5432"
+    volumes:
+      - techshop_pgdata:/var/lib/postgresql/data
+
+volumes:
+  techshop_pgdata:

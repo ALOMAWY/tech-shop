@@ -1,0 +1,47 @@
+
+> techshop@0.1.0 dev C:\Users\POWER TECH\Desktop\working-apps\ecommerce-elctronic-shop
+> next dev
+
+   ▲ Next.js 15.5.23
+   - Local:        http://localhost:3000
+   - Network:      http://10.2.0.2:3000
+   - Environments: .env
+
+ ✓ Starting...
+Attention: Next.js now collects completely anonymous telemetry regarding usage.
+This information is used to shape Next.js' roadmap and prioritize features.
+You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
+https://nextjs.org/telemetry
+
+
+   We detected TypeScript in your project and reconfigured your tsconfig.json file for you.
+   The following mandatory changes were made to your tsconfig.json:
+
+   	- jsx was set to preserve (next.js implements its own optimized jsx transform)
+
+ ✓ Ready in 12.6s
+ ○ Compiling /[locale] ...
+ ✓ Compiled /[locale] in 80.7s (9846 modules)
+ GET /ar 200 in 46977ms
+ GET /favicon.ico 404 in 933ms
+ ○ Compiling /[locale]/login ...
+ GET /ar 200 in 5145ms
+ GET /ar 500 in 25601ms
+ GET /ar/login 500 in 26992ms
+ GET /ar/login 500 in 28836ms
+ ✓ Compiled /_not-found in 44.8s (10171 modules)
+ GET / 404 in 48035ms
+ GET /sw.js 404 in 853ms
+ ○ Compiling /[locale]/login ...
+ ✓ Compiled /[locale]/login in 14.9s (5492 modules)
+ GET /ar/login 200 in 20067ms
+ GET /favicon.ico 404 in 9996ms
+ GET /ar/login 200 in 2329ms
+ GET /ar 200 in 419ms
+ GET /ar 200 in 392ms
+ GET /ar 200 in 255ms
+ GET /ar 200 in 229ms
+ ○ Compiling /[locale]/dashboard ...
+ ✓ Compiled /[locale]/dashboard in 23s (10647 modules)
+ GET /ar/dashboard 307 in 32775ms
+ GET /login 404 in 471ms
