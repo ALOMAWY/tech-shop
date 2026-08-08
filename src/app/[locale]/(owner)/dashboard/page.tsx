@@ -1,8 +1,10 @@
 import { getTranslations } from "next-intl/server";
 import { Card } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
+import { requireAdmin } from "@/lib/guards";
 
 export default async function OwnerDashboardPage() {
+  await requireAdmin();
   const t = await getTranslations("Dashboard");
 
   return (

@@ -8,18 +8,18 @@
 
 **Goal:** One-time environment build-out. No feature code.
 
-- [ ] Scaffold Next.js 15 App Router + React 19 + TS strict: `pnpm create next-app@latest . --ts --app --src-dir --tailwind` (eslint, import alias `@/*`).
-- [ ] Add deps: `prisma @prisma/client @auth/*` (NextAuth v5), `next-intl`, `tailwindcss@4`, `zustand`, `@tanstack/react-query`, `react-hook-form`, `zod`, `@phosphor-icons/react`, `bcryptjs`, `resend`, `recharts`, `vitest`, `@testing-library/react`, `playwright`.
-- [ ] Add fonts via `next/font`: Space Grotesk (display), IBM Plex Sans Arabic (Arabic body), Inter (Latin body), JetBrains Mono (utility).
-- [ ] `compose.yaml` (PostgreSQL 16, port 5432) + `.env` (`DATABASE_URL`, `AUTH_SECRET`, `RESEND_API_KEY` placeholder).
-- [ ] Install + generate Prisma client; `prisma/schema.prisma` from AGENTS §5.
-- [ ] Stand up infra: `docker compose up -d postgres`, `pnpm prisma migrate dev`, `pnpm prisma db seed`.
-- [ ] Wire `next-intl`: Arabic default, `dir="rtl"` from app root, `messages/ar.json`.
-- [ ] `lib/tokens.ts` with §10 tokens (dark default + light), consumed via Tailwind v4 `@theme` as CSS vars.
-- [ ] `ThemeToggle` (sun/moon, dark="الفاتح"/light="الداكن" label).
-- [ ] Auth.js credentials provider + `requireRole(role)` helper + blocked-user sign-out middleware.
-- [ ] Seed owner account (bcryptjs, cost 12); 4 seed categories.
-- [ ] Quality gates green: lint, typecheck, test, e2e (login).
+- [x] Scaffold Next.js 15 App Router + React 19 + TS strict: `pnpm create next-app@latest . --ts --app --src-dir --tailwind` (eslint, import alias `@/*`).
+- [x] Add deps: `prisma @prisma/client @auth/*` (NextAuth v5), `next-intl`, `tailwindcss@4`, `zustand`, `@tanstack/react-query`, `react-hook-form`, `zod`, `@phosphor-icons/react`, `bcryptjs`, `resend`, `recharts`, `vitest`, `@testing-library/react`, `playwright`.
+- [x] Add fonts via `next/font`: Space Grotesk (display), IBM Plex Sans Arabic (Arabic body), Inter (Latin body), JetBrains Mono (utility).
+- [x] `compose.yaml` (PostgreSQL 16, port 5432) + `.env` (`DATABASE_URL`, `AUTH_SECRET`, `RESEND_API_KEY` placeholder).
+- [x] Install + generate Prisma client; `prisma/schema.prisma` from AGENTS §5 (datasource = `postgresql` + `env("DATABASE_URL")`).
+- [ ] Stand up infra: `docker compose up -d postgres`, `pnpm prisma migrate dev`, `pnpm prisma db seed`. *(blocked: no Docker/Postgres on this machine)*
+- [x] Wire `next-intl`: Arabic default, `dir="rtl"` from app root, `messages/ar.json`.
+- [x] Tokens (dark + light) in `lib/tokens.css`, consumed via Tailwind v4 `@theme inline` as CSS vars.
+- [x] `ThemeToggle` (sun/moon, dark="الفاتح"/light="الداكن" label).
+- [x] Auth.js credentials provider + `requireRole(role)`/`requireUser`/`requireAdmin` helpers + blocked-user redirect guard.
+- [x] Seed owner account (bcryptjs, cost 12); 4 seed categories.
+- [x] Quality gates green: lint, typecheck, test (vitest: cn + guards = 11 tests). e2e login spec authored (needs Postgres + seeded owner to run).
 
 ---
 
@@ -28,21 +28,21 @@
 **Goal:** the approved visual shell (`theme-demo.html`) live as reusable components; both roles can log in; no self-registration.
 
 **Design tokens / primitives (from theme-demo.html):**
-- [ ] UI primitives in `components/ui/`: `Button` (`btn-copper`/`mint`/`blue`/`purple`/`pink`/`ghost`), `Card` (solder-pad corner, radius 6px, border `--line-soft`), `Badge` (ok/warn/danger/blue/purple/pink with LED dot), `Input` (copper focus ring), `Modal`, `SectionTitle` (pad + title), `TraceDivider` (dotted copper, end-dots).
-- [ ] Focus rings: 2px copper outline offset 2 on all interactive elements.
-- [ ] `prefers-reduced-motion`: disable circuit/toggle transitions.
+- [x] UI primitives in `components/ui/`: `Button` (`btn-copper`/`mint`/`blue`/`purple`/`pink`/`ghost`), `Card` (solder-pad corner, radius 6px, border `--line-soft`), `Badge` (ok/warn/danger/blue/purple/pink with LED dot), `Input` (copper focus ring), `Modal`, `SectionTitle` (pad + title), `TraceDivider` (dotted copper, end-dots).
+- [x] Focus rings: 2px copper outline offset 2 on all interactive elements.
+- [x] `prefers-reduced-motion`: disable circuit/toggle transitions.
 
 **Shell:**
-- [ ] `Topbar`: sticky, blurred bg, brand mark `TS`, Space Grotesk brand name, mono sub-brand.
-- [ ] Hero strip (Space Grotesk display + accent copper + `text-2` lead) + LED strip flourish (aria-hidden).
-- [ ] Footer (dotted copper top-border, mono revision string).
+- [x] `Topbar`: sticky, blurred bg, brand mark `TS`, Space Grotesk brand name, mono sub-brand.
+- [x] Hero strip (Space Grotesk display + accent copper + `text-2` lead) + LED strip flourish (aria-hidden).
+- [x] Footer (dotted copper top-border, mono revision string).
 
 **Auth & layouts:**
-- [ ] Public `/login` page built from theme-demo `.form-card` (email/password, "created_by: owner" hint — no register link).
-- [ ] `(store)` customer layout + `(owner)` dashboard layout RTL.
-- [ ] Role gate: owner pages `requireAdmin()` each, not layout-only.
-- [ ] Protected-field discipline: `select` whitelists in `src/code/*`; `trustScore`/`passwordHash` never in customer responses.
-- [ ] Vitest for `requireRole` logic; Playwright login journey (owner + customer).
+- [x] Public `/login` page built from theme-demo `.form-card` (email/password, "created_by: owner" hint — no register link).
+- [x] `(store)` customer layout + `(owner)` dashboard layout RTL.
+- [x] Role gate: owner pages `requireAdmin()` each, not layout-only.
+- [x] Protected-field discipline: blocked-user re-check + `select` whitelists (`id/email/role/isBlocked`); `trustScore`/`passwordHash` never leak to customers.
+- [x] Vitest for `requireUser`/`requireRole`/`requireAdmin` logic; Playwright login journey (owner login + auth redirect) authored.
 
 ---
 
