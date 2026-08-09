@@ -6,9 +6,9 @@ import { cn } from "@/lib/cn";
 
 const NAV = [
   { href: "/dashboard", key: "dashboard" },
-  { href: "/products", key: "products" },
-  { href: "/customers", key: "customers" },
-  { href: "/orders", key: "orders" },
+  { href: "/dashboard/products", key: "products" },
+  { href: "/dashboard/customers", key: "customers" },
+  { href: "/dashboard/orders", key: "orders" },
 ];
 
 export default async function OwnerLayout({ children }: { children: React.ReactNode }) {

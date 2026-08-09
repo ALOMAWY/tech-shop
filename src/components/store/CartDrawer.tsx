@@ -2,7 +2,8 @@
 
 import { useCart } from "@/features/cart/store";
 import { Modal } from "@/components/ui/Modal";
-import { Button } from "@/components/ui/Button";
+import { buttonClasses } from "@/components/ui/Button";
+import { Link } from "@/i18n/navigation";
 
 export function CartDrawer() {
   const { items, isOpen, toggleCart } = useCart();
@@ -38,7 +39,9 @@ export function CartDrawer() {
             <circle className="node" cx="390" cy="20" r="4" />
           </svg>
         </div>
-        <Button className="w-full">إتمام الدفع</Button>
+        <Link href="/checkout" onClick={toggleCart} className={buttonClasses("copper", "w-full")}>
+          إتمام الدفع
+        </Link>
       </div>
     </Modal>
   );

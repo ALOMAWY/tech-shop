@@ -27,7 +27,7 @@
                 },
     "Auth":  {
                  "title":  "تسجيل الدخول",
-                 "subtitle":  "بدون تسجيل ذاتي — حسابات الزبائن يُنشئها المالك فقط.",
+                 "subtitle":  "بدون تسجيل ذاتي — حسابات الزبائن تُنشئها المالك فقط.",
                  "email":  "البريد الإلكتروني",
                  "emailPlaceholder":  "customer@example.com",
                  "password":  "كلمة المرور",
@@ -44,14 +44,17 @@
                       "welcome":  "مرحباً، المالك",
                       "nav":  {
                                   "dashboard":  "لوحة التحكم",
-                                  "products":  "المنتجات",
+                                  "products":  "catalog",
                                   "customers":  "الزبائن",
                                   "orders":  "الطلبات"
                               }
                   },
     "Common":  {
-                   "backToStore":  "عودة إلى المتجر",
-                   "loading":  "جارٍ التحميل…"
+                   "backToStore":  "العودة إلى المتجر",
+                   "loading":  "جارٍ التحميل…",
+                   "close":  "إغلاق",
+                   "cancel":  "إلغاء",
+                   "submit":  "تأكيد"
                },
     "Orders":  {
                    "status":  {
@@ -60,6 +63,66 @@
                                   "PAID":  "مدفوع",
                                   "PREPARING":  "قيد التحضير",
                                   "DELIVERED":  "تم التسليم"
-                              }
-               }
+                              },
+                   "checkout":  {
+                                    "method":  "طريقة الدفع",
+                                    "methodNote":  "الخصم لا يسري على الدفع عند الاستلام",
+                                    "summary":  "ملخص الطلب",
+                                    "place":  "إرسال الطلب",
+                                    "placed":  "تم استلام طلبك",
+                                    "placedNote":  "رقم الطلب {id}",
+                                    "viewOrder":  "متابعة الطلب",
+                                    "backToCatalog":  "العودة إلى الكتالوج"
+                                },
+                   "title":  "الطلبات",
+                   "empty":  "لا توجد طلبات بعد",
+                   "orderNumber":  "رقم الطلب",
+                   "customer":  "الزبون",
+                   "method":  "طريقة الدفع",
+                   "total":  "المجموع",
+                   "placedAt":  "تاريخ الطلب",
+                   "paymentCode":  "رمز الدفع",
+                   "payable":  "الدفع",
+                   "backToOrders":  "العودة إلى الطلبات",
+                   "next":  "الخطوة التالية",
+                   "confirmOrder":  "تأكيد الطلب",
+                   "confirmPayment":  "تأكيد الدفعات",
+                   "markPaid":  "تم الدفع",
+                   "check":  "تفاصيل الطلب",
+                   "howToPay":  "كيف تدفع",
+                   "scan":  "امسح الرمز لتأكيد التحويل",
+                   "codeActive":  "الرمز يُظهر بعد تأكيد الطلب من المالك",
+                   "trace":  "تتبع الطلب",
+                   "line":  "المنتج",
+                   "qty":  "الكمية",
+                   "unitPrice":  "سعر الوحدة",
+                   "subtotal":  "المجموع الفرعي",
+                   "discount":  "الخصم",
+                   "paymentMethods":  {
+                                          "SHAM_CASH_QR":  "شنط كاش — رمز QR",
+                                          "SHAM_CASH_QR_desc":  "يدفع الزبون المبلغ عندك ويرسل رمز الدفع للتأكيد",
+                                          "COD":  "الدفع عند الاستلام",
+                                          "COD_desc":  "بدون رمز وبدون خصم",
+                                          "PREPAID":  "دفع مسبق",
+                                          "PREPAID_desc":  "الطلب يُحضَّر فقط بعد التأكيد بتمام"
+                                      },
+                   "notFound":  "الطلب غير موجود",
+                   "codeRevealedOnConfirm":  "يظهر رمز الدفع بعد تأكيد الطلب",
+                   "markPaidFirst":  "يجب الدفع أولاً (دفع مسبق)",
+                   "delivered":  "تم التسليم",
+                   "nextAction":  {
+                                      "PREPARING":  "حدد قيد التحضير",
+                                      "PAID":  "تم الدفع",
+                                      "AWAITING_PAYMENT":  "بانتظار الدفع",
+                                      "RECEIVED":  "تأكيد الاستلام"
+                                  }
+               },
+    "Payment":  {
+                    "code":  "رمز الدفع",
+                    "shamSteps":  {
+                                      "one":  "ادخل للفرع أو أرسل عبر شن —  كاش",
+                                      "two":  "ارسَل رمز الحوالة إلى المالك في المحادثة",
+                                      "three":  "انتظر تأكيد الدفع"
+                                  }
+                }
 }
