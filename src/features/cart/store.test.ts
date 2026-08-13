@@ -1,6 +1,5 @@
 import { describe, it, expect, beforeEach } from "vitest";
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
 import type { Product } from "@/features/products/mock";
 
 // Re-create the store type for testing

@@ -1,7 +1,6 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
 import { z } from "zod";
 import { db } from "@/lib/db";
 import { requireAdmin } from "@/lib/guards";
@@ -9,7 +8,6 @@ import { requireAdmin } from "@/lib/guards";
 const ProductSchema = z.object({
   name: z.string().min(1, "Name required"),
   categoryId: z.string().min(1, "Category required"),
-  sku: z.string().min(1, "SKU required"),
   price: z.coerce.number().positive("Price must be positive"),
   quantity: z.coerce.number().int().nonnegative("Quantity must be non-negative"),
   features: z.array(z.string()).default([]),
@@ -22,7 +20,6 @@ export async function createProduct(formData: FormData) {
   const rawData = {
     name: formData.get("name"),
     categoryId: formData.get("categoryId"),
-    sku: formData.get("sku"),
     price: formData.get("price"),
     quantity: formData.get("quantity"),
     features: formData.getAll("features").filter((f) => f !== ""),
@@ -36,16 +33,12 @@ export async function createProduct(formData: FormData) {
 
   try {
     await db.product.create({
-      data: {
-        ...validated.data,
-        features: validated.data.features,
-        images: validated.data.images,
-      },
+      data: validated.data,
     });
     revalidatePath("/dashboard/products");
     revalidatePath("/");
     return { success: true };
-  } catch (error) {
+  } catch {
     return { error: { _errors: ["Database error"] } };
   }
 }
@@ -56,7 +49,6 @@ export async function updateProduct(id: string, formData: FormData) {
   const rawData = {
     name: formData.get("name"),
     categoryId: formData.get("categoryId"),
-    sku: formData.get("sku"),
     price: formData.get("price"),
     quantity: formData.get("quantity"),
     features: formData.getAll("features").filter((f) => f !== ""),
@@ -71,16 +63,12 @@ export async function updateProduct(id: string, formData: FormData) {
   try {
     await db.product.update({
       where: { id },
-      data: {
-        ...validated.data,
-        features: validated.data.features,
-        images: validated.data.images,
-      },
+      data: validated.data,
     });
     revalidatePath("/dashboard/products");
     revalidatePath("/");
     return { success: true };
-  } catch (error) {
+  } catch {
     return { error: { _errors: ["Database error"] } };
   }
 }
@@ -93,23 +81,35 @@ export async function deleteProduct(id: string) {
     revalidatePath("/dashboard/products");
     revalidatePath("/");
     return { success: true };
-  } catch (error) {
+  } catch {
     return { error: "Database error" };
   }
 }
 
 export async function getProducts() {
-  return await db.product.findMany({
+  await requireAdmin();
+
+  const products = await db.product.findMany({
     include: { category: true },
     orderBy: { createdAt: "desc" },
   });
+
+  return products.map((p) => ({
+    ...p,
+    price: p.price.toString(),
+  }));
 }
 
 export async function getProduct(id: string) {
-  return await db.product.findUnique({
+  await requireAdmin();
+
+  const product = await db.product.findUnique({
     where: { id },
     include: { category: true },
   });
+  if (!product) return null;
+
+  return { ...product, price: product.price.toString() };
 }
 
 export async function getCategories() {

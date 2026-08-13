@@ -1,10 +1,16 @@
+"use client";
+
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { ThemeToggle } from "@/components/shared/ThemeToggle";
 import { CartTrigger } from "@/components/store/CartTrigger";
+import { ChatsCircle, Package } from "@phosphor-icons/react";
 
 export function Topbar() {
   const t = useTranslations("Shell");
+
+  const iconLink =
+    "flex h-10 w-10 items-center justify-center rounded-[6px] border border-line bg-chip text-copper transition-transform active:scale-95";
 
   return (
     <header className="sticky top-0 z-50 border-b border-line-soft bg-[color-mix(in_srgb,var(--bg)_88%,transparent)] backdrop-blur-md">
@@ -21,6 +27,12 @@ export function Topbar() {
           </span>
         </Link>
         <div className="flex items-center gap-2.5">
+          <Link href="/carts" className={iconLink} aria-label={t("myCarts")}>
+            <Package size={20} />
+          </Link>
+          <Link href="/messages" className={iconLink} aria-label={t("messages")}>
+            <ChatsCircle size={20} />
+          </Link>
           <CartTrigger />
           <ThemeToggle />
         </div>

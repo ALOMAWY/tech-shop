@@ -1,0 +1,4 @@
+-- AlterTable
+ALTER TABLE "Cart" ADD COLUMN     "adjusted" BOOLEAN NOT NULL DEFAULT false,
+ADD COLUMN     "isReady" BOOLEAN NOT NULL DEFAULT false,
+ADD COLUMN     "sentAt" TIMESTAMP(3);

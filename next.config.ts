@@ -7,6 +7,7 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: false,
   },
+  outputFileTracingRoot: __dirname,
 };
 
 export default withNextIntl(nextConfig);

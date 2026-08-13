@@ -137,6 +137,9 @@ model Cart {
   customer   User     @relation(fields: [customerId], references: [id])
   createdBy  String?
   createdAt  DateTime @default(now())
+  isReady    Boolean  @default(false)
+  sentAt     DateTime?
+  adjusted   Boolean  @default(false)
 
   items CartItem[]
 }

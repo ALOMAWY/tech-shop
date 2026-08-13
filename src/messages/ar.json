@@ -8,7 +8,9 @@
                   "themeToLight":  "الفاتح",
                   "themeToDark":  "الداكن",
                   "footerName":  "تِك شوب — نظام توزيع قطع إلكترونية بالجملة",
-                  "footerRev":  "TECHSHOP·PCB·REV-02"
+                  "footerRev":  "TECHSHOP·PCB·REV-02",
+                  "myCarts":  "السلات الجاهزة",
+                  "messages":  "الرسائل"
               },
     "Hero":  {
                  "title":  "هوية بصرية مستوحاة من",
@@ -40,15 +42,18 @@
                  "logout":  "خروج"
              },
     "Dashboard":  {
-                      "title":  "لوحة التحكم",
-                      "welcome":  "مرحباً، المالك",
-                      "nav":  {
-                                  "dashboard":  "لوحة التحكم",
-                                  "products":  "catalog",
-                                  "customers":  "الزبائن",
-                                  "orders":  "الطلبات"
-                              }
-                  },
+                    "title":  "لوحة التحكم",
+                    "welcome":  "مرحباً، المالك",
+                    "nav":  {
+                                "dashboard":  "لوحة التحكم",
+                                "products":  "المنتجات",
+                                "customers":  "الزبائن",
+                                "orders":  "الطلبات",
+                                "discounts":  "أكواد الخصم",
+                                "messages":  "الرسائل",
+                                "carts":  "السلات الجاهزة"
+                            }
+                },
     "Common":  {
                    "backToStore":  "العودة إلى المتجر",
                    "loading":  "جارٍ التحميل…",
@@ -120,9 +125,115 @@
     "Payment":  {
                     "code":  "رمز الدفع",
                     "shamSteps":  {
-                                      "one":  "ادخل للفرع أو أرسل عبر شن —  كاش",
-                                      "two":  "ارسَل رمز الحوالة إلى المالك في المحادثة",
-                                      "three":  "انتظر تأكيد الدفع"
-                                  }
-                }
+                                       "one":  "ادخل للفرع أو أرسل عبر شن —  كاش",
+                                       "two":  "ارسَل رمز الحوالة إلى المالك في المحادثة",
+                                       "three":  "انتظر تأكيد الدفع"
+                                   }
+                },
+    "Customers":  {
+                      "title":  "الزبائن",
+                      "subtitle":  "إدارة حسابات الزبائن",
+                      "empty":  "لا يوجد زبائن بعد",
+                      "createNew":  "زبون جديد",
+                      "view":  "التفاصيل",
+                      "block":  "حظر",
+                      "unblock":  "إلغاء الحظر",
+                      "blocked":  "محظور",
+                      "active":  "نشط",
+                      "rating":  "التقييم",
+                      "trust":  "الثقة",
+                      "orders":  "طلبات",
+                      "email":  "البريد الإلكتروني",
+                      "password":  "كلمة المرور",
+                      "address":  "العنوان",
+                      "addressPlaceholder":  "محافظة / مدينة / منطقة",
+                      "create":  "إنشاء الحساب",
+                      "creating":  "جارٍ الإنشاء…",
+                      "cancel":  "إلغاء",
+                      "createdAt":  "تاريخ الإنشاء",
+                      "notFound":  "الزبون غير موجود",
+                      "backToCustomers":  "العودة إلى الزبائن",
+                      "edit":  "تعديل",
+                      "save":  "حفظ التغييرات",
+                      "saving":  "جارٍ الحفظ…",
+                      "details":  "تفاصيل الحساب",
+                      "recentOrders":  "آخر الطلبات",
+                      "noOrders":  "لا توجد طلبات لهذا الزبون",
+                      "orderId":  "رقم الطلب",
+                      "blockConfirm":  "سيُخرج الزبون تلقائياً في زيارته التالية",
+                      "unblockConfirm":  "سيتمكن الزبون من الدخول مرة أخرى"
+                  },
+    "Discounts":  {
+                      "title":  "أكواد الخصم",
+                      "subtitle":  "أنشئ أكواداً مرتبطة بمنتجات أو زبائن",
+                      "empty":  "لا توجد أكواد خصم بعد",
+                      "createNew":  "كود جديد",
+                      "code":  "الكود",
+                      "type":  "النوع",
+                      "PERCENT":  "نسبة",
+                      "FIXED":  "قيمة ثابتة",
+                      "value":  "القيمة",
+                      "expiry":  "الصلاحية",
+                      "active":  "مفعّل",
+                      "inactive":  "موقوف",
+                      "neverExpires":  "لا تنتهي",
+                      "scope":  "النطاق",
+                      "allProducts":  "كل المنتجات",
+                      "allCustomers":  "كل الزبائن",
+                      "expired":  "منتهي",
+                      "generate":  "توليد كود",
+                      "toggle":  "تفعيل/إيقاف",
+                      "delete":  "حذف",
+                      "deleteConfirm":  "حذف هذا الكود نهائياً؟",
+                      "selectProducts":  "المنتجات المشمولة",
+                      "selectCustomers":  "الزبائن المشمولون",
+                      "invalidType":  "نوع خصم غير صحيح",
+                      "exists":  "هذا الكود مستخدم مسبقاً",
+                      "save":  "حفظ",
+                      "saving":  "جارٍ الحفظ…",
+                      "minPurchase":  "أدنى قيمة طلب",
+                      "productsSelected":  "{count} منتج محدد",
+                      "customersSelected":  "{count} زبون محدد"
+                  },
+    "Messages":  {
+                     "title":  "الرسائل",
+                     "subtitle":  "محادثات الزبائن",
+                     "empty":  "لا توجد محادثات بعد",
+                     "selectCustomer":  "اختر زبوناً",
+                     "searchPlaceholder":  "بحث بالاسم أو البريد…",
+                     "noMessages":  "لا توجد رسائل في هذه المحادثة",
+                     "placeholder":  "اكتب رسالتك…",
+                     "send":  "إرسال",
+                     "sending":  "جارٍ الإرسال…",
+                     "sentAt":  "أرسلت",
+                     "seen":  "شوهدت",
+                     "delivered":  "سُلمت",
+                     "new":  "جديد",
+                     "unread":  "غير مقروء",
+                     "backToList":  "العودة للمحادثات"
+                 },
+    "Carts":  {
+                 "title":  "السلات الجاهزة",
+                 "subtitle":  "جهّز سلة وأرسلها لزبون",
+                 "empty":  "لا توجد سلات جاهزة",
+                 "createNew":  "سلة جديدة",
+                 "selectCustomer":  "اختر الزبون",
+                 "selectProducts":  "اختر المنتجات",
+                 "quantity":  "الكمية",
+                 "send":  "إرسال السلة",
+                 "sent":  "أُرسلت",
+                 "draft":  "مسودة",
+                 "total":  "المجموع",
+                 "diff":  "تعديلات الزبون",
+                 "changed":  "تغيّرت الكميات",
+                 "sendReady":  "إرسال",
+                 "backToCarts":  "العودة إلى السلات",
+                 "delete":  "حذف",
+                 "deleteConfirm":  "حذف هذه السلة نهائياً؟",
+                 "addItem":  "إضافة منتج",
+                 "product":  "المنتج",
+                 "total":  "المجموع",
+                 "creating":  "جارٍ الإنشاء…",
+                 "save":  "حفظ"
+             }
 }
